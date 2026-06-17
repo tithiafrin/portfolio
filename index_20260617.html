@@ -316,97 +316,11 @@
       color: var(--ink-muted);
     }
 
-    /* ── Gallery ─────────────────────────────────────────── */
-    #gallery { background: #f3f2ee; }
-    .gallery-intro {
-      color: var(--ink-soft); max-width: 560px;
-      margin-bottom: 40px; font-size: 15px;
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .gallery-item {
-      position: relative;
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-      border-radius: var(--radius);
-      background: #dddbd4;
-      cursor: pointer;
-    }
-    .gallery-item img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .gallery-item:hover img { transform: scale(1.05); }
-    .gallery-caption {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(26,26,46,0.82));
-      color: #fff;
-      font-family: Arial, sans-serif; font-size: 12px;
-      padding: 28px 12px 10px;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-    .gallery-item:hover .gallery-caption { opacity: 1; }
-
-    /* Placeholder tile (shown when no real image is set) */
-    .gallery-placeholder {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 10px;
-      color: #aaa;
-      font-family: Arial, sans-serif; font-size: 12px;
-      text-align: center; padding: 12px;
-    }
-    .gallery-placeholder svg { opacity: 0.35; }
-
-    /* Light-box overlay */
-    .lightbox {
-      display: none; position: fixed; inset: 0; z-index: 999;
-      background: rgba(10,10,20,0.92);
-      align-items: center; justify-content: center;
-      flex-direction: column; gap: 16px;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img {
-      max-width: 90vw; max-height: 80vh;
-      border-radius: var(--radius);
-      object-fit: contain;
-      box-shadow: 0 8px 48px rgba(0,0,0,0.6);
-    }
-    .lightbox-caption {
-      color: rgba(255,255,255,0.75);
-      font-family: Arial, sans-serif; font-size: 14px;
-      text-align: center; max-width: 560px;
-    }
-    .lightbox-close {
-      position: fixed; top: 20px; right: 24px;
-      font-size: 28px; color: #fff; cursor: pointer;
-      line-height: 1; background: none; border: none;
-      font-family: Arial, sans-serif;
-    }
-    .lightbox-nav {
-      position: fixed; top: 50%; transform: translateY(-50%);
-      font-size: 32px; color: rgba(255,255,255,0.6);
-      cursor: pointer; background: none; border: none;
-      font-family: Arial, sans-serif; padding: 0 20px;
-      user-select: none;
-    }
-    .lightbox-nav:hover { color: #fff; }
-    #lb-prev { left: 0; }
-    #lb-next { right: 0; }
-
     /* ── Mobile ──────────────────────────────────────────── */
     @media (max-width: 640px) {
       .nav-links { gap: 16px; }
       .nav-links a { font-size: 11px; }
       .about-grid, .training-grid { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       section { padding: 52px 0; }
     }
   </style>
@@ -422,7 +336,6 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#training">Training</a></li>
-      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -727,141 +640,6 @@
   </div>
 </section>
 
-<!-- ── Gallery ───────────────────────────────── -->
-<section id="gallery">
-  <div class="container">
-    <p class="section-label">Field Work</p>
-    <h2 class="section-title">From the ground up</h2>
-    <p class="gallery-intro">
-      A glimpse into the workshops, training sessions, and community events behind the work —
-      across Bangladesh's garment sector and beyond.
-    </p>
-
-    <!--
-      HOW TO ADD YOUR PHOTOS
-      ─────────────────────────────────────────────────────────────────
-      1. Place your image files in the same folder as this index.html
-         (e.g. field1.jpg, field2.jpg … field8.jpg)
-      2. For each gallery-item below, replace the placeholder <div>
-         inside it with:
-             <img src="field1.jpg" alt="Short description" />
-         and update the data-caption and data-src attributes on the
-         parent .gallery-item element.
-      3. The lightbox and hover captions will work automatically.
-      ─────────────────────────────────────────────────────────────────
-    -->
-
-    <div class="gallery-grid">
-
-      <!-- Slot 1 -->
-      <div class="gallery-item"
-           data-src="field1.jpg"
-           data-caption="Add your caption here — event name, location, year"
-           onclick="openLightbox(this)">
-        <div class="gallery-placeholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Photo 1<br>Replace with field1.jpg</span>
-        </div>
-        <div class="gallery-caption">Add your caption here</div>
-      </div>
-
-      <!-- Slot 2 -->
-      <div class="gallery-item"
-           data-src="field2.jpg"
-           data-caption="Add your caption here"
-           onclick="openLightbox(this)">
-        <div class="gallery-placeholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Photo 2<br>Replace with field2.jpg</span>
-        </div>
-        <div class="gallery-caption">Add your caption here</div>
-      </div>
-
-      <!-- Slot 3 -->
-      <div class="gallery-item"
-           data-src="field3.jpg"
-           data-caption="Add your caption here"
-           onclick="openLightbox(this)">
-        <div class="gallery-placeholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Photo 3<br>Replace with field3.jpg</span>
-        </div>
-        <div class="gallery-caption">Add your caption here</div>
-      </div>
-
-      <!-- Slot 4 -->
-      <div class="gallery-item"
-           data-src="field4.jpg"
-           data-caption="Add your caption here"
-           onclick="openLightbox(this)">
-        <div class="gallery-placeholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Photo 4<br>Replace with field4.jpg</span>
-        </div>
-        <div class="gallery-caption">Add your caption here</div>
-      </div>
-
-      <!-- Slot 5 -->
-      <div class="gallery-item"
-           data-src="field5.jpg"
-           data-caption="Add your caption here"
-           onclick="openLightbox(this)">
-        <div class="gallery-placeholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Photo 5<br>Replace with field5.jpg</span>
-        </div>
-        <div class="gallery-caption">Add your caption here</div>
-      </div>
-
-      <!-- Slot 6 -->
-      <div class="gallery-item"
-           data-src="field6.jpg"
-           data-caption="Add your caption here"
-           onclick="openLightbox(this)">
-        <div class="gallery-placeholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Photo 6<br>Replace with field6.jpg</span>
-        </div>
-        <div class="gallery-caption">Add your caption here</div>
-      </div>
-
-      <!-- Slot 7 (optional) -->
-      <div class="gallery-item"
-           data-src="field7.jpg"
-           data-caption="Add your caption here"
-           onclick="openLightbox(this)">
-        <div class="gallery-placeholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Photo 7 (optional)<br>Replace with field7.jpg</span>
-        </div>
-        <div class="gallery-caption">Add your caption here</div>
-      </div>
-
-      <!-- Slot 8 (optional) -->
-      <div class="gallery-item"
-           data-src="field8.jpg"
-           data-caption="Add your caption here"
-           onclick="openLightbox(this)">
-        <div class="gallery-placeholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Photo 8 (optional)<br>Replace with field8.jpg</span>
-        </div>
-        <div class="gallery-caption">Add your caption here</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ── Lightbox overlay ───────────────────────── -->
-<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
-  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-  <button class="lightbox-nav" id="lb-prev" onclick="shiftLightbox(-1)">&#8592;</button>
-  <img id="lb-img" src="" alt="" />
-  <div class="lightbox-caption" id="lb-caption"></div>
-  <button class="lightbox-nav" id="lb-next" onclick="shiftLightbox(1)">&#8594;</button>
-</div>
-
 <!-- ── Contact ────────────────────────────────── -->
 <section id="contact">
   <div class="container">
@@ -894,82 +672,23 @@
   <div>Tithi Afrin · Programme &amp; Project Coordinator · Finland-bound</div>
 </footer>
 
-<!-- Scroll-reveal + Gallery Lightbox -->
+<!-- Scroll-reveal micro-interaction -->
 <script>
-  // ── Scroll-reveal ──────────────────────────────────────────────────────
-  const revealEls = document.querySelectorAll(
-    '.exp-item, .training-item, .impact-cell, .skill-group, .gallery-item'
-  );
-  const revealObserver = new IntersectionObserver(entries => {
+  const els = document.querySelectorAll('.exp-item, .training-item, .impact-cell, .skill-group');
+  const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.style.opacity = '1';
         e.target.style.transform = 'translateY(0)';
       }
     });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.1 });
 
-  revealEls.forEach((el, i) => {
+  els.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(18px)';
-    el.style.transition = `opacity 0.4s ease ${(i % 4) * 60}ms, transform 0.4s ease ${(i % 4) * 60}ms`;
-    revealObserver.observe(el);
-  });
-
-  // ── Gallery lightbox ───────────────────────────────────────────────────
-  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
-  const lightbox     = document.getElementById('lightbox');
-  const lbImg        = document.getElementById('lb-img');
-  const lbCaption    = document.getElementById('lb-caption');
-  let currentIdx     = 0;
-
-  function openLightbox(el) {
-    currentIdx = galleryItems.indexOf(el);
-    loadSlide(currentIdx);
-    lightbox.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    lightbox.classList.remove('open');
-    document.body.style.overflow = '';
-    lbImg.src = '';
-  }
-
-  function closeLightboxOnBg(e) {
-    // Only close if clicking the backdrop itself, not image/caption/buttons
-    if (e.target === lightbox) closeLightbox();
-  }
-
-  function shiftLightbox(dir) {
-    currentIdx = (currentIdx + dir + galleryItems.length) % galleryItems.length;
-    loadSlide(currentIdx);
-  }
-
-  function loadSlide(idx) {
-    const item = galleryItems[idx];
-    const src  = item.dataset.src || '';
-    const cap  = item.dataset.caption || '';
-
-    // Check if the item has a real <img> child (user has added their photo)
-    const realImg = item.querySelector('img');
-    if (realImg) {
-      lbImg.src = realImg.src;
-      lbImg.alt = realImg.alt || cap;
-    } else {
-      // Placeholder — show a styled message in lightbox
-      lbImg.src = '';
-      lbImg.alt = '';
-    }
-    lbCaption.textContent = cap || 'Add a caption in the data-caption attribute';
-  }
-
-  // Keyboard navigation
-  document.addEventListener('keydown', e => {
-    if (!lightbox.classList.contains('open')) return;
-    if (e.key === 'Escape')      closeLightbox();
-    if (e.key === 'ArrowRight')  shiftLightbox(1);
-    if (e.key === 'ArrowLeft')   shiftLightbox(-1);
+    el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    io.observe(el);
   });
 </script>
 </body>
