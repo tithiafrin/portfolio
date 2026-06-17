@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tithi Afrin — Program & Project Coordinator</title>
+  <style>
+    /* ── Tokens ─────────────────────────────────────────── */
+    :root {
+      --ink:       #1a1a2e;
+      --ink-soft:  #4a4a6a;
+      --ink-muted: #8888aa;
+      --bg:        #fafaf8;
+      --surface:   #ffffff;
+      --accent:    #c0392b;      /* labour-red — purposeful, not decorative */
+      --accent-2:  #2c5f8a;      /* trust-blue */
+      --rule:      #e8e6e0;
+      --tag-bg:    #f0eff9;
+      --tag-fg:    #2c5f8a;
+      --radius:    4px;
+      --transition: 200ms ease;
+    }
+
+    /* ── Reset ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; }
+
+    /* ── Layout ─────────────────────────────────────────── */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 72px 0; border-bottom: 1px solid var(--rule); }
+    section:last-of-type { border-bottom: none; }
+
+    /* ── Nav ────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,250,248,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-inner {
+      max-width: 860px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-name {
+      font-size: 15px; font-weight: normal; letter-spacing: 0.03em;
+      color: var(--ink-soft);
+      font-family: 'Georgia', serif;
+    }
+    .nav-links {
+      display: flex; gap: 28px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--ink-soft); font-family: Arial, sans-serif;
+    }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── Hero ───────────────────────────────────────────── */
+    #hero {
+      padding: 100px 0 80px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero-eyebrow {
+      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); font-family: Arial, sans-serif;
+      margin-bottom: 20px;
+    }
+    .hero-name {
+      font-size: clamp(42px, 7vw, 72px);
+      font-weight: normal; line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .hero-name span {
+      display: block;
+      color: var(--accent-2);
+    }
+    .hero-sub {
+      font-size: 18px; color: var(--ink-soft);
+      max-width: 540px; line-height: 1.6;
+      margin-bottom: 36px;
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 20px;
+      align-items: center;
+    }
+    .hero-location {
+      font-family: Arial, sans-serif;
+      font-size: 13px; color: var(--ink-muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 11px 24px;
+      background: var(--accent);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 13px; letter-spacing: 0.05em;
+      border-radius: var(--radius);
+      transition: background var(--transition);
+    }
+    .btn-primary:hover { background: #a93226; text-decoration: none; }
+    .btn-outline {
+      display: inline-block;
+      padding: 10px 24px;
+      border: 1px solid var(--accent-2);
+      color: var(--accent-2);
+      font-family: Arial, sans-serif;
+      font-size: 13px; letter-spacing: 0.05em;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+    }
+    .btn-outline:hover { background: var(--accent-2); color: #fff; text-decoration: none; }
+
+    /* ── Section headings ───────────────────────────────── */
+    .section-label {
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent); font-family: Arial, sans-serif;
+      margin-bottom: 12px;
+    }
+    h2.section-title {
+      font-size: 30px; font-weight: normal;
+      color: var(--ink); margin-bottom: 40px;
+      line-height: 1.25;
+    }
+
+    /* ── Impact numbers (signature element) ─────────────── */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .impact-cell {
+      background: var(--surface);
+      padding: 28px 24px;
+    }
+    .impact-number {
+      font-size: 42px; font-weight: normal;
+      color: var(--accent); line-height: 1;
+      margin-bottom: 6px;
+      font-family: 'Georgia', serif;
+    }
+    .impact-label {
+      font-size: 13px; color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      line-height: 1.4;
+    }
+
+    /* ── About ───────────────────────────────────────────── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    }
+    .about-text p { color: var(--ink-soft); margin-bottom: 16px; }
+    .value-list { list-style: none; }
+    .value-list li {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: Arial, sans-serif;
+      font-size: 14px; color: var(--ink-soft);
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .value-list li::before {
+      content: '→';
+      color: var(--accent); flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Experience ──────────────────────────────────────── */
+    .exp-item { margin-bottom: 52px; }
+    .exp-item:last-child { margin-bottom: 0; }
+    .exp-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 8px;
+      margin-bottom: 6px;
+    }
+    .exp-title {
+      font-size: 19px; font-weight: normal;
+      color: var(--ink);
+    }
+    .exp-date {
+      font-size: 13px; color: var(--ink-muted);
+      font-family: Arial, sans-serif;
+      white-space: nowrap;
+    }
+    .exp-org {
+      font-size: 14px; color: var(--accent-2);
+      font-family: Arial, sans-serif;
+      margin-bottom: 14px;
+    }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li {
+      position: relative; padding-left: 18px;
+      font-size: 15px; color: var(--ink-soft);
+      margin-bottom: 8px; line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: '·'; position: absolute; left: 0;
+      color: var(--accent); font-size: 20px; top: -2px;
+    }
+    .exp-divider {
+      border: none; border-top: 1px solid var(--rule);
+      margin: 48px 0;
+    }
+
+    /* ── Skills ──────────────────────────────────────────── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px;
+    }
+    .skill-group h3 {
+      font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+      font-family: Arial, sans-serif; color: var(--ink-soft);
+      margin-bottom: 14px;
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      font-family: Arial, sans-serif;
+      font-size: 12px; letter-spacing: 0.03em;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid #d5d3f0;
+    }
+
+    /* ── Training ────────────────────────────────────────── */
+    .training-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .training-item {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+    .training-org {
+      font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      font-family: Arial, sans-serif; color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .training-name {
+      font-size: 14px; color: var(--ink);
+      line-height: 1.4;
+    }
+
+    /* ── Education ───────────────────────────────────────── */
+    .edu-item { margin-bottom: 28px; }
+    .edu-degree { font-size: 18px; color: var(--ink); }
+    .edu-meta {
+      font-family: Arial, sans-serif; font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    /* ── Languages ───────────────────────────────────────── */
+    .lang-row {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .lang-name { font-size: 16px; min-width: 100px; }
+    .lang-level {
+      font-size: 12px; font-family: Arial, sans-serif;
+      color: var(--ink-muted); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .lang-bar { flex: 1; height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+    .lang-fill { height: 100%; background: var(--accent-2); border-radius: 2px; }
+
+    /* ── Contact ─────────────────────────────────────────── */
+    #contact { text-align: center; }
+    .contact-sub {
+      color: var(--ink-soft); max-width: 480px; margin: 0 auto 36px;
+    }
+    .contact-links {
+      display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;
+    }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: Arial, sans-serif; font-size: 14px;
+      color: var(--ink-soft);
+      border: 1px solid var(--rule);
+      padding: 10px 20px; border-radius: var(--radius);
+      transition: all var(--transition);
+    }
+    .contact-link:hover {
+      border-color: var(--accent-2); color: var(--accent-2);
+      text-decoration: none;
+    }
+    .contact-badge {
+      display: inline-block; background: #e8f5e9; color: #2e7d32;
+      font-family: Arial, sans-serif; font-size: 12px;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 24px;
+      border: 1px solid #a5d6a7;
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      text-align: center; padding: 32px 24px;
+      font-family: Arial, sans-serif; font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    /* ── Mobile ──────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 11px; }
+      .about-grid, .training-grid { grid-template-columns: 1fr; }
+      section { padding: 52px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-name">Tithi Afrin</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#training">Training</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ───────────────────────────────────── -->
+<div class="container" id="hero">
+  <p class="hero-eyebrow">Program &amp; Project Coordinator</p>
+  <h1 class="hero-name">
+    Tithi Afrin
+    <span>Labour Rights · Social Protection · Advocacy</span>
+  </h1>
+  <p class="hero-sub">
+    Eight years advancing workers' rights, gender equality, and decent work
+    across Bangladesh's garment sector — in partnership with ILO, GIZ, Plan International,
+    and European trade union networks.
+  </p>
+  <div class="hero-meta">
+    <a href="mailto:tithiafrin8@gmail.com" class="btn-primary">Get in Touch</a>
+    <a href="https://www.linkedin.com/in/tithi-afrin-9544b3102" target="_blank" rel="noopener" class="btn-outline">LinkedIn</a>
+    <span class="hero-location">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Relocating to Finland — Resident Permit holder, full work permission
+    </span>
+  </div>
+</div>
+
+<!-- ── Impact ─────────────────────────────────── -->
+<div class="container">
+  <div class="impact-grid" style="margin-top: 0; border-top: none;">
+    <div class="impact-cell">
+      <div class="impact-number">8+</div>
+      <div class="impact-label">Years in programme &amp; project coordination</div>
+    </div>
+    <div class="impact-cell">
+      <div class="impact-number">20%</div>
+      <div class="impact-label">Increase in youth participation achieved in education project</div>
+    </div>
+    <div class="impact-cell">
+      <div class="impact-number">3</div>
+      <div class="impact-label">International collaboration countries (Germany, Nepal, global)</div>
+    </div>
+    <div class="impact-cell">
+      <div class="impact-number">2</div>
+      <div class="impact-label">Major EU-funded projects coordinated (GIZ, WSM)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── About ──────────────────────────────────── -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Working at the intersection of labour rights, social protection, and gender equity</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I coordinate multi-stakeholder programmes that translate policy frameworks into ground-level
+          change for workers — particularly in Bangladesh's ready-made garment sector, one of the world's
+          most complex labour environments.
+        </p>
+        <p>
+          My work spans Employment Injury Scheme advocacy, capacity building with trade unions, psychosocial
+          support structures, and cross-border collaboration with European labour networks. I hold a Finnish
+          Resident Permit and am relocating to Finland to continue this work in a Nordic context.
+        </p>
+        <p>
+          I bring a business education background (MBS, Management) combined with field-level programme
+          delivery — I am equally comfortable in a donor reporting meeting as in a factory floor training
+          session.
+        </p>
+      </div>
+      <div>
+        <ul class="value-list">
+          <li>Labour rights &amp; trade union engagement</li>
+          <li>Social protection programme design</li>
+          <li>Gender equality &amp; inclusion</li>
+          <li>Stakeholder coordination — civil society to government</li>
+          <li>Monitoring, evaluation &amp; impact reporting</li>
+          <li>International NGO &amp; donor relations</li>
+          <li>Capacity building &amp; training facilitation</li>
+          <li>Data analysis using Power BI</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Experience ─────────────────────────────── -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">A decade of programme delivery</h2>
+
+    <!-- Role 1 -->
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-title">Program Coordinator</div>
+        <div class="exp-date">Feb 2023 – Mar 2025</div>
+      </div>
+      <div class="exp-org">National Garment Workers Federation · Dhaka, Bangladesh</div>
+      <ul class="exp-bullets">
+        <li>Led coordination of the <strong>Employment Injury Scheme (EIS) Pilot</strong> advocacy project, supported by FEMNET and GIZ, promoting social protection for 4 million garment workers.</li>
+        <li>Managed implementation of the <em>Social Protection for All</em> project funded by WSM (We Social Movement), aligning activities with ILO decent work agenda.</li>
+        <li>Organised and facilitated workshops, training-of-trainers sessions, and awareness programmes on labour law and workers' rights.</li>
+        <li>Represented Bangladesh as a guest speaker at international events; attended seminars in Germany and Nepal; advocated for platform workers' rights in cross-border dialogues.</li>
+        <li>Collaborated with European and Asian NGO networks to raise the profile of garment workers' issues on international policy platforms.</li>
+      </ul>
+    </div>
+
+    <hr class="exp-divider" />
+
+    <!-- Role 2 -->
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-title">Programme Officer</div>
+        <div class="exp-date">Aug 2020 – Aug 2022</div>
+      </div>
+      <div class="exp-org">Surovi · Dhaka, Bangladesh</div>
+      <ul class="exp-bullets">
+        <li>Managed field operations for the <em>Child Bride to Book Work</em> youth education project, achieving a <strong>20% increase in youth participation</strong> through targeted enrollment strategies.</li>
+        <li>Identified and enrolled out-of-school and at-risk dropout children; developed inclusive learning environments within project schools.</li>
+        <li>Led formation of youth groups addressing gender-based violence; facilitated GBV awareness and GEMS (Gender Equity Movement in Schools) sessions.</li>
+        <li>Coordinated income-generating activities for parents of vulnerable students to reduce financial barriers to education.</li>
+        <li>Liaised with government regulators (DSHE) to ensure project compliance; organised educational programmes for underprivileged students across partner schools.</li>
+      </ul>
+    </div>
+
+    <hr class="exp-divider" />
+
+    <!-- Role 3 -->
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-title">Management Associate</div>
+        <div class="exp-date">Feb 2015 – Jul 2016</div>
+      </div>
+      <div class="exp-org">Hatil Complex Ltd. · Dhaka, Bangladesh</div>
+      <ul class="exp-bullets">
+        <li>Supported HR and administrative operations including payroll management, attendance reporting, and recruitment compliance.</li>
+        <li>Contributed to ERP system implementation, improving process efficiency across HR workflows.</li>
+      </ul>
+    </div>
+
+    <hr class="exp-divider" />
+
+    <!-- Earlier roles: condensed -->
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-title">Earlier Roles</div>
+        <div class="exp-date">2007 – 2015</div>
+      </div>
+      <ul class="exp-bullets">
+        <li><strong>Sales &amp; Marketing Executive</strong> — Time Communication, Dhaka (Nov 2014 – Feb 2015): client relationship management, sales target achievement.</li>
+        <li><strong>Freelance Event &amp; Brand Activation Promoter</strong> — Asiatic, Dhaka (Jul 2013 – Oct 2014): supported branding campaigns for multinational clients.</li>
+        <li><strong>Accountant &amp; Cashier</strong> — Somoyar Alo Akota Multi Co-operative Society, Dhaka (Oct 2012 – Mar 2013): financial records, loan documentation.</li>
+        <li><strong>Teacher</strong> — Dhaka Ahsania Mission (Jul 2007 – Sep 2007): primary-level instruction and examination management.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ─────────────────────────────────── -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label">Skills</p>
+    <h2 class="section-title">What I bring to the table</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Programme Management</h3>
+        <div class="tag-list">
+          <span class="tag">Project Coordination</span>
+          <span class="tag">Work Planning</span>
+          <span class="tag">Budget Management</span>
+          <span class="tag">Financial Reporting</span>
+          <span class="tag">Resource Mobilisation</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Stakeholder Engagement</h3>
+        <div class="tag-list">
+          <span class="tag">Trade Union Relations</span>
+          <span class="tag">Government Liaison</span>
+          <span class="tag">Donor Reporting</span>
+          <span class="tag">Civil Society Networks</span>
+          <span class="tag">International NGOs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>M&amp;E &amp; Reporting</h3>
+        <div class="tag-list">
+          <span class="tag">Monitoring &amp; Evaluation</span>
+          <span class="tag">Outcome Reporting</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Data Analysis</span>
+          <span class="tag">Field Surveys</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Training &amp; Facilitation</h3>
+        <div class="tag-list">
+          <span class="tag">Training of Trainers (ToT)</span>
+          <span class="tag">Workshop Design</span>
+          <span class="tag">Capacity Building</span>
+          <span class="tag">Psychosocial Counselling</span>
+          <span class="tag">Inclusive Pedagogy</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Thematic Expertise</h3>
+        <div class="tag-list">
+          <span class="tag">Labour Rights</span>
+          <span class="tag">Social Protection</span>
+          <span class="tag">Decent Work</span>
+          <span class="tag">Gender Equality</span>
+          <span class="tag">Business &amp; Human Rights</span>
+          <span class="tag">Child Protection</span>
+          <span class="tag">Safeguarding</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Tools &amp; Admin</h3>
+        <div class="tag-list">
+          <span class="tag">Microsoft Office Suite</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">ERP Systems</span>
+          <span class="tag">Payroll Administration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Training ───────────────────────────────── -->
+<section id="training">
+  <div class="container">
+    <p class="section-label">Professional Development</p>
+    <h2 class="section-title">Continuous learning across labour, rights, and management</h2>
+    <div class="training-grid">
+      <div class="training-item">
+        <div class="training-org">ILO · GIZ · University of Dhaka</div>
+        <div class="training-name">Spring School on Business &amp; Human Rights (BHR) and Responsible Business Conduct (RBC)</div>
+      </div>
+      <div class="training-item">
+        <div class="training-org">FEMNET · GIZ</div>
+        <div class="training-name">Training of Trainers — Employment Injury Scheme (EIS) Pilot Advocacy</div>
+      </div>
+      <div class="training-item">
+        <div class="training-org">GIZ · IGS</div>
+        <div class="training-name">Effective Stakeholder Engagement in Business and Human Rights</div>
+      </div>
+      <div class="training-item">
+        <div class="training-org">Ver.di (Germany)</div>
+        <div class="training-name">Digitalization and Automation of the Garment Industry: Determining the Way Forward</div>
+      </div>
+      <div class="training-item">
+        <div class="training-org">Plan International Bangladesh</div>
+        <div class="training-name">Training of Trainers — Psychosocial Counselling; SIYB &amp; Family Development Plan</div>
+      </div>
+      <div class="training-item">
+        <div class="training-org">Plan International · DSHE</div>
+        <div class="training-name">Gender Equity Movement in Schools (GEMS); Inclusive Pedagogy; Leadership &amp; Gender Inclusion</div>
+      </div>
+      <div class="training-item">
+        <div class="training-org">Bangladesh Hi-Tech Park Authority</div>
+        <div class="training-name">Soft Skills Training — DEIED Project</div>
+      </div>
+      <div class="training-item">
+        <div class="training-org">Self-initiated</div>
+        <div class="training-name">Data Analysis using Microsoft Power BI</div>
+      </div>
+    </div>
+
+    <!-- Education inline -->
+    <div style="margin-top: 56px;">
+      <p class="section-label">Education</p>
+      <div class="edu-item" style="margin-top: 20px;">
+        <div class="edu-degree">Master of Business Studies — Management</div>
+        <div class="edu-meta">National University, Dhaka · 2012</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Bachelor of Business Studies — Management</div>
+        <div class="edu-meta">National University, Faridpur · 2011</div>
+      </div>
+    </div>
+
+    <!-- Languages inline -->
+    <div style="margin-top: 48px;">
+      <p class="section-label">Languages</p>
+      <div style="max-width: 420px; margin-top: 20px;">
+        <div class="lang-row">
+          <div class="lang-name">Bangla</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+          <div class="lang-level">Native</div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-name">English</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:75%"></div></div>
+          <div class="lang-level">Professional</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Open to opportunities in Finland</h2>
+    <div class="contact-badge">✓ Finnish Resident Permit — Full Work Permission</div>
+    <p class="contact-sub">
+      I am actively seeking Programme Coordinator, Project Officer, or CSR/Sustainability roles
+      in Finland — particularly in organisations working on labour rights, development cooperation,
+      international NGOs, or CSR. Happy to connect for a call or coffee.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:tithiafrin8@gmail.com" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        tithiafrin8@gmail.com
+      </a>
+      <a href="tel:+8801738382834" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7.18 2 2 0 015 5h3a2 2 0 012 2 12.6 12.6 0 00.57 2.57 2 2 0 01-.45 2.11L8.09 12.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.57.57A2 2 0 0122 19z"/></svg>
+        +880 1738 382 834
+      </a>
+      <a href="https://www.linkedin.com/in/tithi-afrin-9544b3102" target="_blank" rel="noopener" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn Profile
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>Tithi Afrin · Programme &amp; Project Coordinator · Finland-bound</div>
+</footer>
+
+<!-- Scroll-reveal micro-interaction -->
+<script>
+  const els = document.querySelectorAll('.exp-item, .training-item, .impact-cell, .skill-group');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  els.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
